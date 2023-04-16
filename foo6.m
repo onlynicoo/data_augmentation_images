@@ -16,7 +16,7 @@ for i = 1:length(trainImages(1,1,1,:))
             
             % Riapplica DCT
             im(:,:,i) = dct2(DCT)
-
+            % asodcma
         end
         image=uint8(im);
         trainImages(:,:,:,k+j) = im;%im(:,:,:);
