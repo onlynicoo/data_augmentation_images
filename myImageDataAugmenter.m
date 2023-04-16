@@ -12,7 +12,7 @@ for i = 1:length(trainImages(1,1,1,:))
         clear augImg
         augImg(:,:,:,j) = trainImages(:,:,:,i);
         
-        %% 1) Flips
+        % Flips
         if randi(2) == 1
             augImg(:,:,:,j) = flipdim(augImg(:,:,:,j),2); % horizontal flip
         end
@@ -20,10 +20,10 @@ for i = 1:length(trainImages(1,1,1,:))
             augImg(:,:,:,j) = flipdim(augImg(:,:,:,j),1); % vertical flip
         end
         
-        %% 2) Rotation
+        % Rotation
         augImg(:,:,:,j) = imrotate(augImg(:,:,:,j),90*randi([0,4])); % angle in degrees
         
-        %% 3) Shear
+        % Shear
         tanMaxAngle = 0.0607; % tan(20) = 0.0607
         shearOffset = 6.889; % tan(20)*227/2 = 6.889 with img size [227 227]
         shearCase = randi([-6,6]);
@@ -37,7 +37,7 @@ for i = 1:length(trainImages(1,1,1,:))
             augImg(:,:,:,j) = imtransform(augImg(:,:,:,j),T,R,'XData',[1 227],'YData',[1+shearOffset 227+shearOffset]);
         end
         
-        %% 4) Crops
+        % Crops
         if randi(2) == 1
             rect = randomWindow2d([227 227],"Scale",[0.4 1],"DimensionRatio",[1 1; 1 1]);
             helpImg = imcrop(augImg(:,:,:,j),rect);
