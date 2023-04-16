@@ -1,9 +1,11 @@
--function [trainImages,trainLabels] = myImageDataAugmenter(trainImages,trainLabels)
+% Input of the function
+function [trainImages,trainLabels] = myImageDataAugmenter(trainImages,trainLabels)
 
 k = length(trainImages(1,1,1,:));
 % for image warping:
 R = makeresampler({'cubic','nearest'},'replicate');
 
+% For every patterns
 for i = 1:length(trainImages(1,1,1,:))
     
     for j = 1:9

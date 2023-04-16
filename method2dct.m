@@ -1,21 +1,24 @@
+% Input of the function 
 function[image] = method2dct(im)
 [y,x,z]=size(im);
 
-%apply standard deviation for every level
+% Apply standard deviation for every level
 sigma2 = std(double(im));
 sigma1 = std(sigma2);
 sigma = std(sigma1)/2;
 
 for channel=1:z
-    %apply DCT
+   
+    % Apply DCT
     DCTim = dct2(im(:,:,channel));
     for riga = 1:y
         for colonna = 1:x
+            
             %DTC(1,1) unmodified
             if riga==1 && colonna==1
                 %nothing
             else
-            %calculate random number between (-0.5,0.5)
+            % Calculate random number between (-0.5,0.5)
             random_z = rand();
             while random_z > 1/2
                 random_z = rand();
@@ -26,12 +29,12 @@ for channel=1:z
             else
                 random_z = random_z * -1;
             end
-            %modify DCT image
+            % Modify DCT image
             DCTim(riga, colonna)= DCTim(riga, colonna) + sigma*random_z;
             end
         end
      end
-    %inverse DCT
+    % Inverse DCT
     image(:,:,channel) = idct2(DCTim);
 end
     image = uint8(image);
